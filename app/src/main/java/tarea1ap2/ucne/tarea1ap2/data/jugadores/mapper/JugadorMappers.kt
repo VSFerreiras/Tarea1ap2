@@ -1,7 +1,7 @@
-package edu.ucne.tarea1ap2.data.tareas.mapper
+package tarea1ap2.ucne.tarea1ap2.data.jugadores.mapper
 
-import edu.ucne.tarea1ap2.domain.model.Jugador
-import edu.ucne.tarea1ap2.data.tareas.local.JugadorEntity
+import tarea1ap2.ucne.tarea1ap2.domain.model.Jugador
+import tarea1ap2.ucne.tarea1ap2.data.jugadores.local.JugadorEntity
 
 
 fun JugadorEntity.toDomain(): Jugador = Jugador(

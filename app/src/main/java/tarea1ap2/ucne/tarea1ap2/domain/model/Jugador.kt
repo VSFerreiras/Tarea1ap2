@@ -1,4 +1,4 @@
-package edu.ucne.tarea1ap2.domain.model
+package tarea1ap2.ucne.tarea1ap2.domain.model
 
 data class Jugador(
     val jugadorId: Int = 0,

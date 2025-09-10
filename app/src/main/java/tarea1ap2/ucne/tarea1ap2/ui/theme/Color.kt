@@ -1,4 +1,4 @@
-package edu.ucne.tarea1ap2.ui.theme
+package tarea1ap2.ucne.tarea1ap2.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

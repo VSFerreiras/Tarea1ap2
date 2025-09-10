@@ -1,4 +1,4 @@
-package edu.ucne.tarea1ap2.data.tareas.local
+package tarea1ap2.ucne.tarea1ap2.data.jugadores.local
 
 import android.content.Context
 import androidx.room.Room
@@ -7,6 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import tarea1ap2.ucne.tarea1ap2.data.local.repository.JugadorRepositoryImpl
+import tarea1ap2.ucne.tarea1ap2.domain.repository.JugadorRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -26,5 +28,11 @@ object AppModule {
     @Singleton
     fun provideJugadorDao(db: JugadorDataBase): JugadorDao {
         return db.jugadorDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideJugadorRepository(dao: JugadorDao): JugadorRepository {
+        return JugadorRepositoryImpl(dao)
     }
 }
