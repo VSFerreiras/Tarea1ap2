@@ -1,4 +1,4 @@
-package edu.ucne.tarea1ap2
+package tarea1ap2.ucne.tarea1ap2
 
 import org.junit.Test
 
