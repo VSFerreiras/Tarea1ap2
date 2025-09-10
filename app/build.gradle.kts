@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "edu.ucne.composedemo"
-    compileSdk = 34
+    namespace = "edu.ucne.tarea1ap2"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "edu.ucne.composedemo"
+        applicationId = "edu.ucne.tarea1ap2"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -88,6 +88,7 @@ dependencies {
 
     //room
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation(libs.androidx.compose.foundation)
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
     //  optional - Kotlin Extensions and Coroutines support for Room
