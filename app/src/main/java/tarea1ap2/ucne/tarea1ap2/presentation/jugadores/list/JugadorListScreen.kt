@@ -6,9 +6,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +22,8 @@ fun JugadorListScreen(
     state: JugadorListUiState,
     onEvent: (JugadorListUiEvent) -> Unit,
     onEdit: (Int) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onViewPartidas: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -36,8 +37,16 @@ fun JugadorListScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onEvent(JugadorListUiEvent.AddNew) }) {
-                Icon(Icons.Default.Add, contentDescription = "Agregar")
+            Row(
+                modifier = Modifier.padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                FloatingActionButton(onClick = { onEvent(JugadorListUiEvent.AddNew) }) {
+                    Icon(Icons.Default.Add, contentDescription = "Agregar Jugador")
+                }
+                FloatingActionButton(onClick = onViewPartidas) {
+                    Icon(Icons.Default.List, contentDescription = "Ver Partidas")
+                }
             }
         }
     ) { padding ->
