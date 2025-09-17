@@ -21,9 +21,10 @@ class JugadorListViewModel @Inject constructor(
     private val deleteJugadorUseCase: DeleteJugadorUseCase
 ) : ViewModel() {
 
+    private val _navigateToPartidas = MutableStateFlow(false)
+    val navigateToPartidas: StateFlow<Boolean> = _navigateToPartidas.asStateFlow()
     private val _state = MutableStateFlow(value = JugadorListUiState())
     val state: StateFlow<JugadorListUiState> = _state.asStateFlow()
-
     private val _navigateToEdit = MutableStateFlow<Int?>(null)
     val navigateToEdit: StateFlow<Int?> = _navigateToEdit.asStateFlow()
 
@@ -37,6 +38,7 @@ class JugadorListViewModel @Inject constructor(
             is JugadorListUiEvent.Delete -> onDelete(event.id)
             is JugadorListUiEvent.Edit -> onEdit(event.id)
             JugadorListUiEvent.AddNew -> onAddNew()
+            JugadorListUiEvent.ViewPartidas -> _navigateToPartidas.value = true
         }
     }
 
@@ -53,7 +55,6 @@ class JugadorListViewModel @Inject constructor(
             _state.update { it.copy(isLoading = true) }
             try {
                 deleteJugadorUseCase(id)
-                // El Flow se actualizará automáticamente con la nueva lista
             } catch (e: Exception) {
                 _state.update {
                     it.copy(
@@ -75,5 +76,6 @@ class JugadorListViewModel @Inject constructor(
 
     fun onNavigationComplete() {
         _navigateToEdit.value = null
+        _navigateToPartidas.value = false
     }
 }

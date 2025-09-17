@@ -1,4 +1,4 @@
-package tarea1ap2.ucne.tarea1ap2.data.jugadores.local
+package tarea1ap2.ucne.tarea1ap2.di
 
 import android.content.Context
 import androidx.room.Room
@@ -7,32 +7,43 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import tarea1ap2.ucne.tarea1ap2.data.dao.PartidaDao
+import tarea1ap2.ucne.tarea1ap2.data.jugadores.local.JugadorDao
+import tarea1ap2.ucne.tarea1ap2.data.local.AppDatabase
+
 import tarea1ap2.ucne.tarea1ap2.data.local.repository.JugadorRepositoryImpl
+import tarea1ap2.ucne.tarea1ap2.data.repository.PartidaRepositoryImpl
 import tarea1ap2.ucne.tarea1ap2.domain.repository.JugadorRepository
+import tarea1ap2.ucne.tarea1ap2.domain.repository.PartidaRepository
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Provides
     @Singleton
-    fun provideJugadorDb(@ApplicationContext appContext: Context) =
-        Room.databaseBuilder(
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
             appContext,
-            JugadorDataBase::class.java,
-            "Jugador.db")
-            .fallbackToDestructiveMigration()
-            .build()
-
-    @Provides
-    @Singleton
-    fun provideJugadorDao(db: JugadorDataBase): JugadorDao {
-        return db.jugadorDao()
+            AppDatabase::class.java,
+            "app_database.db"
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
     @Singleton
-    fun provideJugadorRepository(dao: JugadorDao): JugadorRepository {
-        return JugadorRepositoryImpl(dao)
-    }
+    fun provideJugadorDao(db: AppDatabase): JugadorDao = db.jugadorDao()
+
+    @Provides
+    @Singleton
+    fun providePartidaDao(db: AppDatabase): PartidaDao = db.partidaDao()
+
+    @Provides
+    @Singleton
+    fun provideJugadorRepository(dao: JugadorDao): JugadorRepository = JugadorRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providePartidaRepository(dao: PartidaDao): PartidaRepository = PartidaRepositoryImpl(dao)
 }

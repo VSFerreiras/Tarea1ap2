@@ -5,4 +5,5 @@ sealed interface JugadorListUiEvent {
     data class Delete(val id: Int) : JugadorListUiEvent
     data class Edit(val id: Int) : JugadorListUiEvent
     data object AddNew : JugadorListUiEvent
+    data object ViewPartidas : JugadorListUiEvent
 }
